@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from django.utils.text import slugify
 from django.dispatch import receiver
 
 # Create your models here.
@@ -31,7 +32,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+    instance.socialuser.save()
 
 
 class Tag(models.Model):
@@ -44,18 +45,30 @@ class Tag(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=50)
     excerpt = models.CharField(max_length=200)
-    image = models.ImageField(upload_to="images")
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(null=False, unique=True)
     content = models.TextField()
     tags = models.ManyToManyField(
-        Tag, blank=True, null=True, related_name="posts")
+        Tag, blank=True, related_name="posts")
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, null=False, related_name="posts")
+    likes = models.ManyToManyField(User, related_name="likes", blank=True)
+
+
+    class Meta: 
+        ordering = ['-created']
 
     def __str__(self):
-        return f"{self.date} - {self.title}"
+        return f"{self.created} - {self.title}"
+
+    def number_of_likes(self):
+        return self.likes.count()
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Post, self).save(*args, **kwargs)
 
 
 class Comment(models.Model):
@@ -63,8 +76,11 @@ class Comment(models.Model):
     comment_author = models.ForeignKey(
         User, on_delete=models.CASCADE, null=False, related_name="comment_author")
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, null=True, related_name="comments")
+        Post, on_delete=models.CASCADE, blank=True, related_name="comments")
     date = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['-date']
+
     def __str__(self):
-        return f'Comment by {self.name}'
+        return f'Comment by {self.comment_author.username}'
