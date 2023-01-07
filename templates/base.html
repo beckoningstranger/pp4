@@ -20,36 +20,44 @@
             {% block page_title %}
             {% endblock page_title %}
         </title>
+    <base href="http://localhost:8000/" />
     </head>
     <body>
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand d-flex flex-column align-item-center"
-             id="sidebar">
-            <a href="#" class="navbar-brand text-light mt-5">
-                <div class="display-5 font-weight-bold">TEXT1</div>
-            </a>
-            <ul class="navbar-nav d-flex flex-column mt-5 w-100">
-                <li class="nav-item w-100">
-                    <a href="#" class="nav-link text-light pl-4">Item 1</a>
-                </li>
-                <li class="nav-item w-100">
-                    <a href="#" class="nav-link text-light pl-4">Item 2</a>
-                </li>
-                <li class="nav-item w-100">
-                    <a href="#" class="nav-link text-light pl-4">Item 3</a>
-                </li>
-            </ul>
-        </nav>
-        <section class="p-4 sidebar-button-container">
-            <button class="btn my-4 btn" id="toggle-sidebar-btn">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </section>
+        <header>
+            <!-- Navigation -->
+            <nav class="navbar navbar-expand d-flex flex-column align-item-center"
+                 id="sidebar">
+                <a href="#" class="navbar-brand text-light mt-5">
+                    <div class="display-5 font-weight-bold">TEXT1</div>
+                </a>
+                <ul class="navbar-nav d-flex flex-column mt-5 w-100">
+                    <li class="nav-item w-100">
+                        <a href="#" class="nav-link text-light pl-4">Item 1</a>
+                    </li>
+                    <li class="nav-item w-100">
+                        <a href="#" class="nav-link text-light pl-4">Item 2</a>
+                    </li>
+                    <li class="nav-item w-100">
+                        <a href="#" class="nav-link text-light pl-4">Item 3</a>
+                    </li>
+                </ul>
+            </nav>
+            <section class="p-4 sidebar-button-container">
+                <button class="btn my-4 btn" id="toggle-sidebar-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </section>
+        </header>
         <!-- Main Content -->
         <main>
-            {% block content %}
-            {% endblock content %}
-        </main>
+            {% if user.is_authenticated %}
+            <p>You are logged in as {{ user.username }}. <a href="accounts/logout">Click here to log out.</a></p>
+                {% block content %}
+                {% endblock content %}
+            </main>
+        {% else %}
+            <p>You are not authenticated! Please <a href="accounts/login">log in</a> or <a href="accounts/signup">sign up.</a></p>
+        {% endif %}
         <!-- Footer -->
         <footer>
             {% block footer %}

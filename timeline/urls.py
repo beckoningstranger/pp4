@@ -1,7 +1,7 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.IndexView.as_view(), name="index"),
-    path('accounts/', include('allauth.urls')),
+    path('timeline/', views.TimelineView.as_view(), name="timeline"),
+    path('', views.LandingView.as_view(), name="landing"),
 ]
