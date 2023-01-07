@@ -6,22 +6,27 @@ from django.dispatch import receiver
 # Create your models here.
 
 
-class Profile(models.Model):
+class SocialUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True)
+    bio = models.TextField(max_length=500, default="No bio has been added yet...")
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
-    post_number = models.IntegerField(default=0)
     join_date = models.DateTimeField(auto_now=True)
+    following = models.ManyToManyField(
+        User, blank=True, related_name="following")
+    friends = models.ManyToManyField(
+        User, blank=True, related_name="friends")
+    followers = models.ManyToManyField(
+        User, blank=True, related_name="followers")
 
     def __str__(self):
-        return f"{self.user}"
+        return f"{self.user.username}"
 
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)
+        SocialUser.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
@@ -40,7 +45,8 @@ class Post(models.Model):
     title = models.CharField(max_length=50)
     excerpt = models.CharField(max_length=200)
     image = models.ImageField(upload_to="images")
-    date = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(null=False, unique=True)
     content = models.TextField()
     tags = models.ManyToManyField(
@@ -54,7 +60,8 @@ class Post(models.Model):
 
 class Comment(models.Model):
     text = models.TextField(max_length=400)
-    comment_author = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name="comment_author")
+    comment_author = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=False, related_name="comment_author")
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, null=True, related_name="comments")
     date = models.DateTimeField(auto_now=True)
