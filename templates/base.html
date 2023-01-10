@@ -20,7 +20,7 @@
             {% block page_title %}
             {% endblock page_title %}
         </title>
-    <base href="http://localhost:8000/" />
+        <base href="http://localhost:8000/" />
     </head>
     <body>
         <header>
@@ -43,7 +43,7 @@
                 </ul>
             </nav>
             <section class="p-4 sidebar-button-container">
-                <button class="btn my-4 btn" id="toggle-sidebar-btn">
+                <button class="btn my-4 btn floating-btn" id="toggle-sidebar-btn">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </section>
@@ -51,13 +51,17 @@
         <!-- Main Content -->
         <main>
             {% if user.is_authenticated %}
-            <p>You are logged in as {{ user.username }}. <a href="accounts/logout">Click here to log out.</a></p>
-                {% block content %}
-                {% endblock content %}
-            </main>
-        {% else %}
-            <p>You are not authenticated! Please <a href="accounts/login">log in</a> or <a href="accounts/signup">sign up.</a></p>
-        {% endif %}
+                <p>
+                    You are logged in as {{ user.username }}. <a href="accounts/logout">Click here to log out.</a>
+                </p>
+            {% else %}
+                <p>
+                    You are not authenticated! Please <a href="accounts/login">log in</a> or <a href="accounts/signup">sign up.</a>
+                </p>
+            {% endif %}
+            {% block content %}
+            {% endblock content %}
+        </main>
         <!-- Footer -->
         <footer>
             {% block footer %}
