@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_title %}
+    {{ post.title }}
+{% endblock page_title %}
+{% block content %}
+    <p>
+        On {{ post.created }}, {{ post.author }} wrote:
+        <br/>
+        {{ post.title }}
+        <br/>
+        {{ post.content }}
+    </p>
+    <p>
+        <a href="{% url 'timeline' %}">Back to your timeline</a>
+    </p>
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'css/add-post.css' %}" />
+{% endblock css_files %}
+{% block content %}
+    <section id="add-post-form">
+        <p>What's happening {{ user.username }}?</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="author_id" value="{{ user.username }}"/>
+            <div id="add-post-buttons">
+                <a href="{% url 'timeline' %}" class="btn btn-primary">Cancel</a>
+                <button class="btn btn-primary">Post</button>
+            </div>
+        </form>
+    </section>
+{% endblock content %}

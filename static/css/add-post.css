@@ -1,0 +1,25 @@
+#add-post-form {
+    text-align: center;
+    margin: 0 2rem;
+}
+
+form {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+form p {
+    display: flex;
+    flex-direction: column;
+}
+
+#add-post-buttons {
+    display: flex;
+}
+
+#add-post-buttons * {
+    margin: 0 5px;
+    width: 100%;
+}
