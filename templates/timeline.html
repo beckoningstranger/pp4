@@ -1,19 +1,83 @@
 {% extends "base.html" %}
+{% load static %}
 {% load i18n %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'css/timeline.css' %}" />
+{% endblock css_files %}
 {% block page_title %}
     Timeline
 {% endblock page_title %}
 {% block content %}
-    <p>Timeline page</p>
     {% if user.is_authenticated %}
-        <ul>
-            {% for post in all_relevant_posts %}
-                <li>
-                    <a href="{% url 'post-details' post.slug %}">Title: {{ post.title }}</a> by {{ post.author }} posted on {{ post.created }}
-                </li>
-            {% endfor %}
-        {% endif %}
-    </ul>
+        <div class="container">
+            <div class="row gy-4 mb-4">
+                {% for post in all_relevant_posts %}
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="timeline-card p-3"
+                             style="{% if post.author == user %} border: 5px solid black {% else %} border: 5px solid #444;
+                                    {% endif %}">
+                            <div class=" {% if  post.author == user %}accented-font{% endif %} centered"
+                                 id="post-author">
+                                {% if not post.author == user %}
+                                    <a href="{% url 'profile' post.author.id %}">{{ post.author }}</a>
+                                {% else %}
+                                    Your post
+                                {% endif %}
+                            </div>
+                            <div class="centered">
+                                <a href="{% url 'post-details' post.slug %}">
+                                    <h2 class="card-title centered">{{ post.title }}</h2>
+                                </a>
+                            </div>
+                            <div class="centered">posted on {{ post.readable_datetime }}</div>
+                            <div class="centered">
+                                <i class="fa-regular fa-image"></i> {{ post.number_of_images }} | <i class="fa-regular fa-comment"></i> {{ post.number_of_comments }} | <i class="fa-regular fa-thumbs-up"></i> {{ post.number_of_likes }}
+                            </div>
+                            <div class="centered" id="post-image">
+                                <a href="{% url 'post-details' post.slug %}">
+                                    {% if post.featured_image == "placeholder" %}
+                                        <img src="https://res.cloudinary.com/dpeawwegg/image/upload/v1674407748/post_default-smaller_1_bonqwa.webp"
+                                             alt="Placeholder image"
+                                             class="card-img-top"/>
+                                    {% else %}
+                                        <img src="{{ post.featured_image }} "
+                                             class="card-img-top"
+                                             alt="User uploaded image"/>
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <div id="post.excerpt">{{ post.excerpt }}</div>
+                            <div class="btn-toolbar justify-content-between"
+                                 role="toolbar"
+                                 aria-label="Toolbar with button groups"
+                                 id="post-buttons">
+                                <div class="btn-group me-2"
+                                     id="share-buttons-container"
+                                     role="group"
+                                     aria-label="First group">
+                                    <a href="https://twitter.com/share?url=http://localhost:8000{% url 'post-details' post.slug %}"
+                                       class="share-button card-button">
+                                        <i class="fa-brands fa-twitter"></i></a>
+                                    <a href="https://twitter.com/share?url=http://localhost:8000{% url 'post-details' post.slug %}"
+                                       class="share-button card-button">
+                                        <i class="fa-brands fa-facebook"></i>
+                                    </a>
+                                </div>
+                                <div class="btn-group"
+                                     id="read-button-container"
+                                     role="group"
+                                     aria-label="Second group">
+                                    <a href="{% url 'post-details' post.slug %}"
+                                       id="read-button"
+                                       class="card-button">Read more</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
     <!-- Button that allows user to post -->
     <form action="{% url 'add-post' %}">
         <button type="submit"

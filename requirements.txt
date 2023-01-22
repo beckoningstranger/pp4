@@ -2,6 +2,7 @@ asgiref==3.5.2
 autopep8==2.0.0
 charset-normalizer==2.1.1
 cloudinary==1.30.0
+crispy-bootstrap5==0.7
 cssbeautifier==1.14.7
 defusedxml==0.7.1
 distlib==0.3.6
@@ -10,6 +11,7 @@ dj3-cloudinary-storage==0.0.6
 Django==3.2.16
 django-allauth==0.52.0
 django-cloudinary-storage==0.3.0
+django-crispy-forms==1.14.0
 django-extensions==3.2.1
 django-generate-secret-key==1.0.2
 djlint==1.19.7

@@ -4,22 +4,22 @@
     <link rel="stylesheet" href="{% static 'css/edit-post.css' %}" />
 {% endblock css_files %}
 {% block page_title %}
-    Create a new post
+    Update your post
 {% endblock page_title %}
 {% block content %}
     <section id="add-post-form">
-        <p>What's going on, {{ user.username }}?</p>
-        <button id="upload_widget" class="cloudinary-button">Upload photos to add to this post</button>
+        <p>Need to make adjustments, {{ user.username }}?</p>
         <div id="uploaded_pics">
-            <p>
-            Once you have added photos, you can click them to remove them again.</p>
+            <p>Simply click a photo to remove it from this post. Your first image will feature on the timeline.</p>
+            {% for image in post.images %}<img src="{{ image }}" alt="" class="user-image" height="200" width="200"/>{% endfor %}
         </div>
+        <button id="upload_widget" class="cloudinary-button">Click here to upload more photos</button>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <div id="edit-post-buttons">
                 <a href="{% url 'timeline' %}" class="btn btn-primary">Cancel</a>
-                <button class="btn btn-primary">Post</button>
+                <button class="btn btn-primary">Update</button>
             </div>
         </form>
     </section>

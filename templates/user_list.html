@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_files %}
+{% endblock css_files %}
+{% block page_title %}
+{% endblock page_title %}
+{% block content %}
+    <p>Here is a list of users you can follow:</p>
+    <ul>
+        {% comment %} Iterate through all users and list all users but the current one {% endcomment %}
+        {% for u in social_users %}
+            {% if not u.user.username == user.username %}
+                {% if not u.user.username in followed_users %}
+                    <li>
+                        {{ u.user.username }}:
+                        {{ u.bio }}
+                        <form action="{% url 'follow-user' u.user.username %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Follow {{ u.user.username }}</button>
+                        </form>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <a href="{% url 'circle' %}">Click here to go back to your circle</a>
+{% endblock content %}

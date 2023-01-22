@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_files %}
+{% endblock css_files %}
+{% block page_title %}
+{% endblock page_title %}
+{% block content %}
+    {% if followed_users %}
+        <ul>
+            You currently follow:
+            {% for u in social_users %}
+                {% if u.user.username in followed_users %}
+                    <li>
+                        {{ u }}:
+                        {% if u.bio %}{{ u.bio }}:{% endif %}
+                        <form action="{% url 'unfollow-user' u.user.username %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Unfollow {{ u.user.username }}</button>
+                        </form>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% else %}
+        You aren't following anybody right now. Try adding somebody to see their posts on your timeline!
+    {% endif %}
+    <!-- Button that allows user to follow other users -->
+    <form action="{% url 'user-list' %}">
+        <button type="submit"
+                class="btn my-4 btn floating-btn"
+                id="add-post-btn"
+                value="Find users to follow">
+            <i class="fa-solid fa-user-plus"></i>
+        </button>
+    </form>
+{% endblock content %}

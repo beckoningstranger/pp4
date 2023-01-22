@@ -15,11 +15,11 @@ form p {
     flex-direction: column;
 }
 
-#add-post-buttons {
+#edit-post-buttons {
     display: flex;
 }
 
-#add-post-buttons * {
+#edit-post-buttons * {
     margin: 0 5px;
     width: 100%;
 }

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/edit-post.css' %}" />
+{% endblock css_files %}
+{% block page_title %}
+    Update your profile
+{% endblock page_title %}
+{% block content %}
+    {{ socialuser.user.username }}'s Profile:
+    <div id="uploaded_pics">
+        <p>Simply click a photo to remove it from this post. Your first image will feature on the timeline.</p>
+        {% if not socialuser.profile_image == "placeholder" %}
+            <img src="{{ socialuser.profile_image }}"
+                 alt=""
+                 id="profile-image"
+                 height="200"
+                 width="200"/>
+        {% endif %}
+    </div>
+    <section id="edit-profile-form">
+        <button id="upload_widget" class="cloudinary-button">Upload profile image</button>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div id="edit-post-buttons">
+                <a href="{% url 'timeline' %}" class="btn btn-primary">Back</a>
+                {% comment %} This prevents people from editing other people's profiles or at least makes it a lot harder {% endcomment %}
+                {% if socialuser.user.username == user.username %}<button class="btn btn-primary">Update</button>{% endif %}
+            </div>
+        </form>
+    </section>
+{% endblock content %}
+{% block javascript %}
+    {% comment %} Cloudinary Upload widget {% endcomment %}
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+    <script src="{% static 'js/edit-profile.js' %}"></script>
+{% endblock javascript %}

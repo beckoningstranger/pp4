@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'css/edit-post.css' %}" />
+{% endblock css_files %}
+{% block page_title %}
+    Update your post
+{% endblock page_title %}
+{% block content %}
+    <section id="add-post-form">
+        <p>Do you really want to delete this post: {{ post.title }}?</p>
+        <form method="post">
+            {% csrf_token %}
+            <div id="edit-post-buttons">
+                <a href="{% url 'timeline' %}" class="btn btn-primary">Cancel</a>
+                <button class="btn btn-primary">Delete</button>
+            </div>
+        </form>
+    </section>
+{% endblock content %}

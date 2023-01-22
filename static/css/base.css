@@ -1,13 +1,34 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&family=Roboto:wght@100;300;400;500;700&display=swap');
+
+
+:root {
+   --main-font-color: #FFF;
+   --accent-font-color: gold;
+   --background-color: #2766EE;
+   --foreground-color: #7AA4FF;
+   --nav-background-color: #003CBD;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Roboto;
 }
 
 body {
     min-height: 100vh;
-    background-color: rgb(61, 61, 61);
-    color: #fff
+    background-color: var(--background-color);
+}
+
+a {
+   text-decoration: none;
+   color: inherit
+}
+
+ul {
+   list-style: none;
 }
 
 .navbar {
@@ -15,7 +36,7 @@ body {
     height: 100vh;
     position: fixed;
     margin-left: -300px;
-    background-color: #7952b3;
+    background-color: var(--nav-background-color);
     transition:0.3s;
 }
 
@@ -27,7 +48,6 @@ body {
  .nav-link:focus,
  .nav-link:hover {
     background-color: rgb(124, 122, 122);
-    color: rgb(172, 144, 144);
  }
 
  .sidebar-button-container {
@@ -43,10 +63,11 @@ body {
  }
 
 .floating-btn {
-   background-color: #7952b3;
-   color: #fff;
+   background-color: var(--nav-background-color);
+   color: var(--main-font-color);
    position: fixed;
    bottom: 0px;
+   border: 2px solid var(--main-font-color);
 }
 
  #toggle-sidebar-btn {
@@ -62,9 +83,10 @@ body {
    background: none!important;
    border: none;
    padding: 0!important;
-   /*optional*/
-   font-family: arial, sans-serif;
-   /*input has OS specific font-family*/
    cursor: pointer;
    color: #fff;
+ }
+
+ .errorlist * {
+   color: red;
  }
