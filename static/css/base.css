@@ -3,11 +3,10 @@
 
 
 :root {
-   --main-font-color: #FFF;
-   --accent-font-color: gold;
-   --background-color: #2766EE;
-   --foreground-color: #7AA4FF;
-   --nav-background-color: #003CBD;
+   --main-font-color: #222;
+   --accent-font-color: #003CBD;
+   --background-color: #333;
+   --foreground-color: rgb(107, 146, 218);
 }
 
 * {
@@ -17,8 +16,11 @@
     font-family: Roboto;
 }
 
+.dropdown-item {
+   color: #FFF;
+}
+
 body {
-    min-height: 100vh;
     background-color: var(--background-color);
 }
 
@@ -31,36 +33,6 @@ ul {
    list-style: none;
 }
 
-.navbar {
-    width: 250px;
-    height: 100vh;
-    position: fixed;
-    margin-left: -300px;
-    background-color: var(--nav-background-color);
-    transition:0.3s;
-}
-
- .nav-link {
-    font-size: 1.25rem;
- }
-
- .nav-link:active,
- .nav-link:focus,
- .nav-link:hover {
-    background-color: rgb(124, 122, 122);
- }
-
- .sidebar-button-container {
-    transition: 0.4s;
- }
-
- .active-nav {
-    margin-left: 0;
- }
-
- .active-cont {
-    margin-left: 250px;
- }
 
 .floating-btn {
    background-color: var(--nav-background-color);
@@ -70,9 +42,6 @@ ul {
    border: 2px solid var(--main-font-color);
 }
 
- #toggle-sidebar-btn {
-   left: 10px;
- }
 
  #add-post-btn {
    right: 10px;

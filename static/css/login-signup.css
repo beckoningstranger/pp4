@@ -1,0 +1,6 @@
+@media screen and (min-width: 992px) {
+        form p {
+            width: 60%;
+            margin: 1rem auto;
+        }
+    }

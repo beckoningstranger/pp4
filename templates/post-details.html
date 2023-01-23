@@ -5,54 +5,55 @@
     {{ post.title }}
 {% endblock page_title %}
 {% block content %}
-    {% if post.author == user %}
-        <a href="{% url 'update-post' post.slug %}">Update Post</a>
-        <a href="{% url 'delete-post' post.slug %}">Delete Post</a>
-    {% endif %}
-    <p>
-        On {{ post.created }}, {{ post.author }} wrote:
-        <br/>
-        {{ post.title }}
-        <br/>
-        {{ post.content }}
-        <br />
-        {% for image in post.images %}<img src="{{ image }}" alt="" height="200" width="200"/>{% endfor %}
-    </p>
-    <p>
-        <a href="{% url 'timeline' %}">Back to your timeline</a>
-    </p>
-    <p>
-        Comments:
-        {% for comment in comments %}
-            <p>
-                On {{ comment.created }} {{ comment.author }} wrote:
+    <div class="container-fluid bg-dark text-light">
+        <div>
+            {% if post.author == user %}
+                <a href="{% url 'update-post' post.slug %}">Update Post</a>
+                <a href="{% url 'delete-post' post.slug %}">Delete Post</a>
+            {% endif %}
+            <div>
+                On {{ post.created }}, {{ post.author }} wrote:
                 <br/>
-                {{ comment.body }}
+                {{ post.title }}
                 <br/>
-                {% if comment.author == user %}
-                    <a href="{% url 'edit-comment' comment.id %}">Edit comment</a>
+                {{ post.content }}
+                <br />
+                {% for image in post.images %}<img src="{{ image }}" alt="" height="200" width="200"/>{% endfor %}
+            </div>
+            <div>
+                Comments:
+                {% for comment in comments %}
+                    <div>
+                        On {{ comment.created }} {{ comment.author }} wrote:
+                        <br/>
+                        {{ comment.body }}
+                        <br/>
+                        {% if comment.author == user %}
+                            <a href="{% url 'edit-comment' comment.id %}">Edit comment</a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div>
+                {% if user.is_authenticated %}
+                    <form action="{% url 'like-post' post.slug %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">
+                            {% if liked %}
+                                <i class="fa-solid fa-thumbs-up"></i>
+                            {% else %}
+                                <i class="fa-regular fa-thumbs-up"></i>
+                            {% endif %}
+                        </button>
+                        <span>{{ post.number_of_likes }}</span>
+                    </form>
+                    <form method="post">
+                        {{ comment_form }}
+                        {% csrf_token %}
+                        <button type="submit" class="btn">Leave Comment</button>
+                    </form>
                 {% endif %}
-            </p>
-        {% endfor %}
-    </p>
-    <p>
-        {% if user.is_authenticated %}
-            <form action="{% url 'like-post' post.slug %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn">
-                    {% if liked %}
-                        <i class="fa-solid fa-thumbs-up"></i>
-                    {% else %}
-                        <i class="fa-regular fa-thumbs-up"></i>
-                    {% endif %}
-                </button>
-                <span>{{ post.number_of_likes }}</span>
-            </form>
-            <form method="post">
-                {{ comment_form }}
-                {% csrf_token %}
-                <button type="submit" class="btn">Leave Comment</button>
-            </form>
-        {% endif %}
-    </p>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

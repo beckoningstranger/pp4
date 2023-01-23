@@ -9,14 +9,14 @@
 {% endblock page_title %}
 {% block content %}
     {% if user.is_authenticated %}
-        <div class="container">
+        <div class="container my-4">
             <div class="row gy-4 mb-4">
                 {% for post in all_relevant_posts %}
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="timeline-card p-3"
                              style="{% if post.author == user %} border: 5px solid black {% else %} border: 5px solid #444;
                                     {% endif %}">
-                            <div class=" {% if  post.author == user %}accented-font{% endif %} centered"
+                            <div class="{% if  post.author == user %}accented-font{% endif %} centered"
                                  id="post-author">
                                 {% if not post.author == user %}
                                     <a href="{% url 'profile' post.author.id %}">{{ post.author }}</a>
@@ -29,14 +29,14 @@
                                     <h2 class="card-title centered">{{ post.title }}</h2>
                                 </a>
                             </div>
-                            <div class="centered">posted on {{ post.readable_datetime }}</div>
+                            <div class="centered">{{ post.readable_datetime }}</div>
                             <div class="centered">
                                 <i class="fa-regular fa-image"></i> {{ post.number_of_images }} | <i class="fa-regular fa-comment"></i> {{ post.number_of_comments }} | <i class="fa-regular fa-thumbs-up"></i> {{ post.number_of_likes }}
                             </div>
                             <div class="centered" id="post-image">
                                 <a href="{% url 'post-details' post.slug %}">
                                     {% if post.featured_image == "placeholder" %}
-                                        <img src="https://res.cloudinary.com/dpeawwegg/image/upload/v1674407748/post_default-smaller_1_bonqwa.webp"
+                                        <img src="{% static 'images/placeholders/default_post.svg' %}"
                                              alt="Placeholder image"
                                              class="card-img-top"/>
                                     {% else %}
@@ -46,7 +46,8 @@
                                     {% endif %}
                                 </a>
                             </div>
-                            <div id="post.excerpt">{{ post.excerpt }}</div>
+                            <div id="post.excerpt" class="card-text">{{ post.excerpt }} 
+                            </div>
                             <div class="btn-toolbar justify-content-between"
                                  role="toolbar"
                                  aria-label="Toolbar with button groups"
@@ -69,7 +70,7 @@
                                      aria-label="Second group">
                                     <a href="{% url 'post-details' post.slug %}"
                                        id="read-button"
-                                       class="card-button">Read more</a>
+                                       class="btn btn-outine-dark p-2">Read more</a>
                                 </div>
                             </div>
                         </div>
