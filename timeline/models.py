@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.contrib.postgres.fields import ArrayField
 from django.utils.text import slugify
 from django.dispatch import receiver
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
@@ -98,7 +98,7 @@ class Post(models.Model):
             else:
                 self.excerpt = ""
                 list_of_words = self.content.split()
-                for i in range(10):
+                for i in range(30):
                     self.excerpt += list_of_words[i]
                     self.excerpt += " "
                 self.excerpt += "..."
@@ -132,9 +132,16 @@ class Comment(models.Model):
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name="comments"
     )
+    author_social = models.ForeignKey(
+        SocialUser, on_delete=models.CASCADE, null=False, related_name="comment_author_social"
+    )
 
     def __str__(self):
         return f"{self.body}"
 
     def get_absolute_url(self):
         return reverse("post-details", kwargs={"slug": self.post.slug})
+
+    # def save(self, *args, **kwargs):
+    #     x = self.author
+    #     self.author_social = SocialUser.objects.get(user=x)

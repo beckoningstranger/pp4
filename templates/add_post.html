@@ -7,22 +7,30 @@
     Create a new post
 {% endblock page_title %}
 {% block content %}
-    <section id="add-post-form">
-        <p>What's going on, {{ user.username }}?</p>
-        <button id="upload_widget" class="cloudinary-button">Upload photos to add to this post</button>
-        <div id="uploaded_pics">
-            <p>
-            Once you have added photos, you can click them to remove them again.</p>
-        </div>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <div id="edit-post-buttons">
-                <a href="{% url 'timeline' %}" class="btn btn-primary">Cancel</a>
-                <button class="btn btn-primary">Post</button>
+    <div class="bg-dark text-light p-md-5 p-0 text-center">
+        <div class="container-fluid bg-dark text-light d-flex flex-column-reverse flex-xl-row py-2">
+            <div id="add-post-image" class="col-sm p-2">
+                <img class="img-fluid"
+                src="{% static 'images/add_post.svg' %}"
+                alt="A stylized person adding a post"/>
             </div>
-        </form>
-    </section>
+            <div id="add-post-form" class="col-sm p-2">
+                <div class="h1 m-2">What's going on, {{ user.username }}?</div>
+                <button id="upload_widget" class="btn btn-primary p-3">Upload some photos</button>
+                <div id="uploaded_pics" class="p-3">
+                    <p>Once you have added photos, you can click them to remove them again.</p>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div id="edit-post-buttons">
+                        <a href="{% url 'timeline' %}" class="btn btn-primary">Cancel</a>
+                        <button class="btn btn-primary">Post</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
 {% block javascript %}
     {% comment %} Cloudinary Upload widget {% endcomment %}

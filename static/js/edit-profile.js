@@ -6,11 +6,17 @@ var imagesInputFields = document.getElementsByTagName('p');
 imagesInputFields[4].style.display = "none"
 
 // Get the profile image and assign eventListeners to it so users can remove it with a click
-let previous_img = document.getElementById('profile-image')
-previous_img.addEventListener("click", function () {
-    image_url.setAttribute("value", "placeholder")
-    previous_img.remove()
-});
+if (document.getElementById('profile-image') != null) {
+    let previous_img = document.getElementById('profile-image')
+    previous_img.addEventListener("click", function () {
+        image_url.setAttribute("value", "placeholder")
+        previous_img.remove()
+    });
+}
+else {
+    previous_img = false;
+}
+
 
 
 
@@ -23,7 +29,9 @@ var myWidget = cloudinary.createUploadWidget(
     },
     (error, result) => {
         if (!error && result && result.event === "success") {
-            previous_img.remove()
+            if (previous_img) {
+                previous_img.remove()
+            }
             let profile_img = document.createElement('img')
             profile_img.setAttribute("src", result.info.url)
             profile_img.setAttribute("width", "200")

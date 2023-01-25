@@ -1,59 +1,136 @@
 {% extends "base.html" %}
 {% load static %}
-{% load crispy_forms_tags %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'css/details.css' %}" />
+{% endblock css_files %}
 {% block page_title %}
     {{ post.title }}
 {% endblock page_title %}
 {% block content %}
-    <div class="container-fluid bg-dark text-light">
-        <div>
-            {% if post.author == user %}
-                <a href="{% url 'update-post' post.slug %}">Update Post</a>
-                <a href="{% url 'delete-post' post.slug %}">Delete Post</a>
-            {% endif %}
-            <div>
-                On {{ post.created }}, {{ post.author }} wrote:
-                <br/>
-                {{ post.title }}
-                <br/>
-                {{ post.content }}
-                <br />
-                {% for image in post.images %}<img src="{{ image }}" alt="" height="200" width="200"/>{% endfor %}
-            </div>
-            <div>
-                Comments:
-                {% for comment in comments %}
-                    <div>
-                        On {{ comment.created }} {{ comment.author }} wrote:
-                        <br/>
-                        {{ comment.body }}
-                        <br/>
-                        {% if comment.author == user %}
-                            <a href="{% url 'edit-comment' comment.id %}">Edit comment</a>
+    <div class="container-fluid bg-dark text-light pb-5">
+        <div class="d-xxl-flex align-items-start justify-content-center">
+            <section id="post-main" class="col-xxl-8">
+                <div id="post-header">
+                    {% if post.author == user %}
+                        <div class="d-flex justify-content-center">
+                            {% if post.author == user %}
+                                <a class="btn btn-outline-danger"
+                                   href="{% url 'update-post' post.slug %}">Update Post</a>
+                                <span class="mx-4"></span>
+                                <a class="btn btn-outline-danger"
+                                   href="{% url 'delete-post' post.slug %}">Delete Post</a>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <div class="text-center h4 mb-0">{{ post.author }}</div>
+                    {% endif %}
+                    <div class="p-2 text-center">
+                        <h1>{{ post.title }}</h1>
+                    </div>
+                    <div class="text-center h5">{{ post.readable_datetime }}</div>
+                </div>
+                
+                {% if not main_image == "noimages" %}
+                <div id="post-images-container" class="text-xl-left">
+                    <div class="post-images d-flex flex-column flex-xl-row-reverse align-items-center">
+                        <div id="main-image-container" class="d-xl-flex container-fluid text-center {% if not multiple_images %}justify-content-center{% endif %} {% if multiple_images %}col-xl-10{% endif %}">
+                            <img id="main-image"
+                                 class="img-fluid rounded border border-white"
+                                 src="{{ main_image }}"
+                                 width="800"
+                                 height="800"
+                                 alt="Featured image"/>
+                        </div>
+                        {% if multiple_images %}
+                            <div id="image-picker" class="py-3 d-flex justify-content-center col-xl-2 flex-xl-column text-xl-right align-items-end">
+                                {% for image in post.images %}<img src="{{ image }}" alt="Image Thumbnail" class="rounded m-1" height="100" width="100"/>{% endfor %}
+                            </div>
                         {% endif %}
                     </div>
-                {% endfor %}
-            </div>
-            <div>
-                {% if user.is_authenticated %}
-                    <form action="{% url 'like-post' post.slug %}" method="post">
-                        {% csrf_token %}
-                        <button type="submit" class="btn">
-                            {% if liked %}
-                                <i class="fa-solid fa-thumbs-up"></i>
-                            {% else %}
-                                <i class="fa-regular fa-thumbs-up"></i>
-                            {% endif %}
-                        </button>
-                        <span>{{ post.number_of_likes }}</span>
-                    </form>
-                    <form method="post">
-                        {{ comment_form }}
-                        {% csrf_token %}
-                        <button type="submit" class="btn">Leave Comment</button>
-                    </form>
+                </div>
                 {% endif %}
-            </div>
+                <div id="post-body" class="text-left m-sm-5">{{ post.content|linebreaks }}</div>
+            </section>
+            <section id="post-comments-likes" class="col-xxl-4">
+                <div id="comments">
+                    <div id="seperator" class="d-none d-xl-block my-4 py-1"></div>
+                    <div id="like-button-container" class="px-md-5 px-sm-0">
+                        <div id="like-button"
+                             class="btn btn-primary my-2 d-flex justify-content-center">
+                            {% if user.is_authenticated %}
+                                <form action="{% url 'like-post' post.slug %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn text-white">
+                                        {% if liked %}
+                                            <span>You like this post!</span> <i class="fa-solid fa-thumbs-up"></i> <span>{{ post.number_of_likes }}</span>
+                                        {% else %}
+                                            <span>Like this post?</span> <i class="fa-regular fa-thumbs-up"></i> <span>{{ post.number_of_likes }}</span>
+                                        {% endif %}
+                                    </button>
+                                </form>
+                            {% else %}
+                                <div>
+                                    {% if post.number_of_likes > 1 %}
+                                        {{ post.number_of_likes }} people like this post!
+                                    {% else %}
+                                        {% if post.number_of_likes == 1 %}
+                                            This post has received a like!
+                                        {% else %}
+                                            <a href="{% url 'login' %}">Sign in</a>
+                                            to like this post!
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div id="previous-posts" class="px-md-5 px-sm-0">
+                        {% for comment in comments %}
+                            <div class="my-2 card d-flex flex-row bg-info text-light comment-card">
+                                <img class="img-fluid d-none d-md-block p-2 rounded"
+                                     {% if comment.author_social.profile_image == "placeholder" %} src="{% static 'images/placeholders/default_user.svg' %}" {% else %} src="{{ comment.author_social.profile_image }}" {% endif %}
+                                     alt="Commenter Profile Image" width="150" height="100"/>
+                                <div class="card-body">
+                                    <div class="card-title">
+                                        <div>
+                                            <span class="h4">{{ comment.author }}</span><span class="mx-2"></span><span>{{ comment.created }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="card-text">{{ comment.body }}</div>
+                                </div>
+                                {% if comment.author == user %}
+                                    <div class="d-flex flex-column justify-content-center comment-buttons">
+                                        <a class="btn btn-primary m-2"
+                                           href="{% url 'edit-comment' comment.id %}"><i class="fa-solid fa-pen"></i></a>
+                                        <a class="btn btn-primary m-2"
+                                           href="{% url 'delete-comment' comment.id %}"><i class="fa-solid fa-trash-can"></i></a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% if user.is_authenticated %}
+                        <div id="post-form" class="px-md-5 px-sm-0">
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <textarea name="body"
+                                              rows="2"
+                                              class="form-control"
+                                              required_id="id_body"
+                                              id="comment_form"
+                                              placeholder="Discuss this post by leaving a comment here"></textarea>
+                                    <button class="btn btn-primary px-4" type="submit">Post</button>
+                                </div>
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+            </section>
         </div>
     </div>
 {% endblock content %}
+{% block javascript %}
+    {% comment %} Cloudinary Upload widget {% endcomment %}
+    <script src="{% static 'js/details.js' %}"></script>
+{% endblock javascript %}

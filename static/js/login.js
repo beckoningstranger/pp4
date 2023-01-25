@@ -3,6 +3,7 @@ var labels = document.getElementsByTagName('label')
 labels[0].style.display = "none"
 labels[1].style.display = "none"
 
+
 // Apply classes to input elements I can't edit otherwise
 var inputs = document.getElementsByTagName('input')
 

@@ -4,11 +4,11 @@
     <link rel="stylesheet" href="{% static 'css/edit-post.css' %}" />
 {% endblock css_files %}
 {% block page_title %}
-    Delete this post
+    Delete your comment
 {% endblock page_title %}
 {% block content %}
     <section id="add-post-form">
-        <p>Do you really want to delete this post: {{ post.title }}?</p>
+        <p>Do you really want to delete this comment: {{ comment.body }}?</p>
         <form method="post">
             {% csrf_token %}
             <div id="edit-post-buttons">

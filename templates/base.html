@@ -26,16 +26,27 @@
     <body>
         <header>
             <!-- Navigation -->
-            <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <nav class="navbar navbar-expand-md bg-dark navbar-dark" id="navbar">
                 <div class="container">
-                    <a href="{% url 'login' %}" class="navbar-brand"><h1>SocialBlog</h1></a>
-
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navmenu" aria-controls="navmenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <a href="{% url 'login' %}" class="navbar-brand">
+                        <h1 class="m-2 display-4" id="logo">SocialBlog</h1>
+                    </a>
+                    <button class="navbar-toggler"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#navmenu"
+                            aria-controls="navmenu"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-
                     <div class="collapse navbar-collapse" id="navmenu">
-                        <ul class="navbar-nav ms-auto">
+                        <ul class="navbar-nav ml-2" id="things-to-do">
+                            <li class="nav-item h2">
+                                <a href="{% url 'add-post' %}" class="nav-link"><i class="bi bi-journal-plus"></i></a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav ms-auto fs-large">
                             {% if user.is_authenticated %}
                                 <li class="nav-item active">
                                     <a href="{% url 'timeline' %}" class="nav-link">Timeline</a>
@@ -71,12 +82,12 @@
                                     </div>
                                 </li>
                             {% else %}
-                            <li class="nav-item">
-                                <a href="{% url 'login' %} " class="nav-link">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{% url 'signup' %}" class="nav-link">Signup</a>
-                            </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'login' %} " class="nav-link">Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{% url 'signup' %}" class="nav-link">Signup</a>
+                                </li>
                             {% endif %}
                         </ul>
                     </div>

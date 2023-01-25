@@ -49,6 +49,13 @@ class PostDetailView(View):
             liked = True
         else:
             liked = False
+        multiple_images = None
+        if len(post.images) > 1:
+            multiple_images = True
+        if post.images:
+            main_image = post.images[0]
+        else:
+            main_image = "noimages"
 
         return render(request,
                       "post-details.html",
@@ -57,17 +64,31 @@ class PostDetailView(View):
                           "comments": comments,
                           "comment_form": CommentForm(),
                           "liked" : liked,
+                          "multiple_images": multiple_images,
+                          "main_image": main_image
                       })
 
     def post(self, request, slug, *args, **kwargs):
         queryset = Post.objects.all()
         post = get_object_or_404(queryset, slug=slug)
         comments = post.comments.all
+        if post.likes.filter(id=request.user.id).exists():
+            liked = True
+        else:
+            liked = False
+        multiple_images = None
+        if len(post.images) > 1:
+            multiple_images = True
+        if post.images:
+            main_image = post.images[0]
+        else:
+            main_image = "noimages"
 
         comment_form = CommentForm(data=request.POST)
 
         if comment_form.is_valid():
             comment_form.instance.author = request.user
+            comment_form.instance.author_social = SocialUser.objects.get(user=request.user)
             comment = comment_form.save(commit=False)
             comment.post = post
             comment.save()
@@ -79,7 +100,10 @@ class PostDetailView(View):
                       {
                           "post": post,
                           "comments": comments,
-                          "comment_form": CommentForm()
+                          "comment_form": CommentForm(),
+                          "liked" : liked,
+                          "multiple_images": multiple_images,
+                          "main_image": main_image
                       })
 
 
@@ -155,6 +179,16 @@ class EditCommentView(UpdateView):
     model = Comment
     template_name = "edit-comment.html"
     fields = ('body',)
+
+
+class DeleteCommentView(DeleteView):
+
+    model = Comment
+    template_name = "delete_comment.html"
+
+    def get_success_url(self):
+        slug = self.object.post.slug
+        return reverse("post-details", kwargs={"slug": slug})
 
 
 class CircleView(ListView):

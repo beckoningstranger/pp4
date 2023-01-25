@@ -5,16 +5,16 @@
 {% block css_files %}
     <link rel="stylesheet" href="{% static 'css/login-signup.css' %}" />
 {% endblock css_files %}
-{% block head_title %}
-  {% trans "Sign In" %}
-{% endblock head_title %}
+{% block page_title %}
+  Welcome to SocialBlog
+{% endblock page_title %}
 {% block content %}
-  <div class="bg-dark text-light p-5 text-center login-page">
-    <div class="container">
-      <div class="d-sm-flex justify-content-center align-items-center">
+  <div class="bg-dark text-light p-md-5 p-0 text-center login-page">
+    <div class="container-fluid">
+      <div class="d-flex flex-column flex-md-row justify-content-center align-items-center">
         <div class="col-sm">
           <img class="img-fluid"
-               src="{% static 'images/landing/socialnetwork.svg' %}"
+               src="{% static 'images/socialnetwork.svg' %}"
                alt=""/>
         </div>
         <div class="col-sm">
@@ -53,11 +53,12 @@
                href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
             <button class="primaryAction btn btn-primary btn-lg mx-2 px-4" type="submit">{% trans "Sign In" %}</button>
           </form>
+          <div class="mt-5 fs-6 fw-light">Are you new here?<br/><a class="link-primary mt-2" href="{% url 'signup' %}">Create an account</a></div>
         </div>
       </div>
     </div>
   </div>
 {% endblock content %}
 {% block javascript %}
-  <script src="{% static 'js/login-signup.js' %}"></script>
+  <script src="{% static 'js/login.js' %}"></script>
 {% endblock javascript %}

@@ -1,24 +1,69 @@
 {% extends "base.html" %}
+{% load static %}
 {% load i18n %}
-{% block head_title %}
-  {% trans "Signup" %}
-{% endblock head_title %}
+{% load account socialaccount %}
+{% block css_files %}
+  <link rel="stylesheet" href="{% static 'css/login-signup.css' %}" />
+{% endblock css_files %}
+{% block page_title %}
+  Create your account
+{% endblock page_title %}
 {% block content %}
-  <h1>{% trans "Sign Up" %}</h1>
-  <p>
-    {% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
-  </p>
-  <form class="signup"
-        id="signup_form"
-        method="post"
-        action="{% url 'account_signup' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    {% if redirect_field_value %}
-      <input type="hidden"
-             name="{{ redirect_field_name }}"
-             value="{{ redirect_field_value }}"/>
-    {% endif %}
-    <button type="submit">{% trans "Sign Up" %}</button>
-  </form>
+  <div class="bg-dark text-light p-md-5 p-0 text-center login-page">
+    <div class="container-fluid bg-dark text-light text-center login-page">
+      <div class="d-md-flex justify-content-center align-items-center py-4">
+        <div class="col-sm">
+          <p>
+            <h1>
+              <span class="text-warning">Welcome!
+                <br/>
+              </span>We're happy to have you with us.
+            </h1>
+          </p>
+          <h3>Create your account:</h3>
+          {% get_providers as socialaccount_providers %}
+          {% if socialaccount_providers %}
+            <p>
+              {% blocktrans with site.name as site_name %}Please sign in with one
+  of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+  for a {{ site_name }} account and sign in below:{% endblocktrans %}
+            </p>
+            <div class="socialaccount_ballot">
+              <ul class="socialaccount_providers">
+                {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+              </ul>
+              <div class="login-or">{% trans "or" %}</div>
+            </div>
+            {% include "socialaccount/snippets/login_extra.html" %}
+          {% endif %}
+          <form class="signup mx-0 mx-md-4"
+                id="signup_form"
+                method="post"
+                action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if redirect_field_value %}
+              <input type="hidden"
+                     name="{{ redirect_field_name }}"
+                     value="{{ redirect_field_value }}"/>
+            {% endif %}
+            <button class="primaryAction btn btn-primary btn-lg mx-2 px-4" type="submit">{% trans "Sign Up" %}</button>
+          </form>
+          <div class="mt-5 fs-6 fw-light">
+            Already have an account?
+            <br/>
+            <a class="link-primary mt-2" href="{% url 'login' %}">Log in</a>
+          </div>
+        </div>
+        <div class="col-sm">
+          <img class="img-fluid"
+               src="{% static 'images/socialnetwork.svg' %}"
+               alt=""/>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock content %}
+{% block javascript %}
+  <script src="{% static 'js/signup.js' %}"></script>
+{% endblock javascript %}

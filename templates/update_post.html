@@ -7,8 +7,31 @@
     Update your post
 {% endblock page_title %}
 {% block content %}
-    <section id="add-post-form">
-        <p>Need to make adjustments, {{ user.username }}?</p>
+    <div class="bg-dark text-light p-md-5 p-0 text-center">
+        <div class="container-fluid bg-dark text-light d-flex flex-column-reverse flex-xl-row py-2">
+            <div id="add-post-image" class="col-sm p-2">
+                <img class="img-fluid" src="{% static 'images/add_post.svg' %}" alt="A stylized person composing a post"/>
+            </div>
+            <div id="add-post-form" class="col-sm p-2">
+                <div class="h1 m-2">Need to make adjustments, {{ user.username }}?</div>
+                <button id="upload_widget" class="btn btn-primary p-3">Upload some photos</button>
+                <div id="uploaded_pics" class="p-3">
+                    <p>Once you have added photos, you can click them to remove them again.</p>
+                        {% for image in post.images %}<img src="{{ image }}" alt="" class="user-image rounded" height="150" width="150"/>{% endfor %}
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div id="edit-post-buttons">
+                        <a href="{% url 'post-details' post.slug %}" class="btn btn-primary">Cancel</a>
+                        <button class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% comment %} <section id="add-post-form">
+        <div>Need to make adjustments, {{ user.username }}?</div>
         <div id="uploaded_pics">
             <p>Simply click a photo to remove it from this post. Your first image will feature on the timeline.</p>
             {% for image in post.images %}<img src="{{ image }}" alt="" class="user-image" height="200" width="200"/>{% endfor %}
@@ -22,7 +45,7 @@
                 <button class="btn btn-primary">Update</button>
             </div>
         </form>
-    </section>
+    </section> {% endcomment %}
 {% endblock content %}
 {% block javascript %}
     {% comment %} Cloudinary Upload widget {% endcomment %}
