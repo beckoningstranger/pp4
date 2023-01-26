@@ -16,7 +16,7 @@
                         <div class="timeline-card p-3"
                              style="{% if post.author == user %} border: 5px solid black {% else %} border: 5px solid #444;
                                     {% endif %}">
-                            <div class="{% if  post.author == user %}accented-font{% endif %} centered"
+                            <div class="{% if post.author == user %}accented-font{% endif %} centered"
                                  id="post-author">
                                 {% if not post.author == user %}
                                     <a href="{% url 'profile' post.author.id %}">{{ post.author }}</a>
@@ -79,14 +79,4 @@
             </div>
         </div>
     {% endif %}
-    <!-- Button that allows user to post -->
-    <form action="{% url 'add-post' %}">
-        <button type="submit"
-                class="btn my-4 btn-lg btn-primary floating-btn"
-                id="add-post-btn"
-                action="{% url 'add-post' %}"
-                value="Add a post">
-            <i class="fa-solid fa-feather"></i>
-        </button>
-    </form>
 {% endblock content %}

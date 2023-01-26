@@ -31,6 +31,8 @@
 body {
    background-color: var(--background-color);
    min-height: 100vh;
+   /* This is needed due to the sticky navbar */
+   padding-top: 90px;
 }
 
 a {
@@ -72,4 +74,9 @@ ul {
 
 .errorlist * {
    color: red;
+}
+
+/* This hides all user actions, Javascript in base.js will unhide the needed actions */
+.user-action {
+   display: none;
 }

@@ -1,33 +1,51 @@
-// var insertListItemsHere = document.getElementById('things-to-do')
-// if (document.title == "Timeline") {
-//     let listItem = document.createElement('li');
-//     listItem.setAttribute('class', 'nav-item');
-//     listItem.setAttribute('id', 'first-action');
-//     insertListItemsHere.insertAdjacentElement('beforeend', listItem);
-//     let insertActionHere = document.getElementById('first-action');
-//     let addPostButton = document.createElement('a');
-//     console.log('a');
-//     addPostButton.setAttribute('href', '/add-post');
-//     addPostButton.setAttribute('class', 'nav-link');
-//     addPostButton.setAttribute('id', 'add-post-button');
-//     insertActionHere.insertAdjacentElement('beforeend', addPostButton)
-//     let addedButton = document.getElementById('add-post-button')
-//     addedButton.innerHTML = '+';
-// }
+var url = window.location.pathname
 
-// let new_img = document.createElement('img')
-// new_img.setAttribute("src", result.info.url)
-// new_img.setAttribute("width", "150")
-// new_img.setAttribute("height", "150")
-// new_img.setAttribute("class", "rounded m-1 user-image")
-// new_img.addEventListener("click", function () {
-//     newUrlsValue = urls.value.replace(new_img.src, '')
-//     urls.setAttribute("value", newUrlsValue)
-//     new_img.remove()
+function getSlugOrPk() {
+    let urlBeforeSlashReversed = ""
+    let urlBeforeSlash = ""
+    for (let i = url.length - 1; url[i] != "/"; i--) {
+        urlBeforeSlashReversed += url[i]
+    }
+    for (let i = urlBeforeSlashReversed.length - 1; i > -1; i--) {
+        urlBeforeSlash += urlBeforeSlashReversed[i]
+    }
+    return urlBeforeSlash
+}
+
+getSlugOrPk();
+
+// Timeline page:
+if (document.title == "Timeline") {
+    addPost = document.getElementById('add-post')
+    addPost.style.display = 'block'
+}
 
 
-// <li class="nav-item">
-//     <a href="{% url 'circle' %}" class="nav-link">Circle</a>
-// </li>
+// Posts:
+var currentUser = document.getElementById('navbarDropdownMenuLink').innerText.trim()
 
-// insert_pics_here.insertAdjacentElement("beforeend", profile_img);
+if (url.includes('post')) {
+    var postAuthorElement = document.getElementById('post-author')
+    var postAuthor = postAuthorElement.innerText.trim()
+    if (postAuthor == currentUser) {
+        editPost = document.getElementById('edit-post')
+        editPost.style.display = 'block'
+        editPost.children[0].setAttribute('href', '/' + 'update-post/' + getSlugOrPk())
+        deletePost = document.getElementById('delete-post')
+        deletePost.style.display = 'block'
+        deletePost.children[0].setAttribute('href', '/' + 'delete-post/' + getSlugOrPk())
+    }
+    
+}
+
+// Profiles:
+if (url.includes('profile')) {
+    var profileOwner = document.getElementById('profile-owner').innerText.trim()
+    console.log(profileOwner)
+    if (profileOwner == currentUser) {
+        editProfile = document.getElementById('edit-profile')
+        editProfile.style.display = 'block'
+        editProfile.children[0].setAttribute('href', '/' + 'profile/edit/' + getSlugOrPk())
+    }
+}
+

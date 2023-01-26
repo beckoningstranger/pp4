@@ -26,7 +26,7 @@
                 <div class="col-lg-10 col-md-8 col-sm-8 data-card">
                     <div class="timeline-card p-3 profile-data col-md-6 col-sm-12">
                         <div class="username">
-                            <h1>{{ viewed_user.user.username }}</h1>
+                            <h1 id="profile-owner">{{ viewed_user.user.username }}</h1>
                         </div>
                         <div class="joined-date">
                             <h5>joined on {{ viewed_user.readable_datetime }}</h5>
@@ -104,11 +104,5 @@
                 {% endfor %}
             </div>
         </div>
-        <!-- Button that allows user to edit profiles -->
-        {% if viewed_user.user.username == user.username %}
-            <a href="{% url 'edit-profile' viewed_user.user.id %}"
-               class="btn my-4 btn floating-btn"
-               id="add-post-btn"><i class="fa-solid fa-pencil"></i></a>
-        {% endif %}
     </div>
 {% endblock content %}

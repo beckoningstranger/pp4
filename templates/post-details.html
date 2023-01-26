@@ -7,23 +7,12 @@
     {{ post.title }}
 {% endblock page_title %}
 {% block content %}
-    <div class="container-fluid bg-dark text-light pb-5">
+    <div class="container-fluid bg-dark text-light py-5">
         <div class="d-xxl-flex align-items-start justify-content-center">
             <section id="post-main" class="col-xxl-8">
                 <div id="post-header">
-                    {% if post.author == user %}
-                        <div class="d-flex justify-content-center">
-                            {% if post.author == user %}
-                                <a class="btn btn-outline-danger"
-                                   href="{% url 'update-post' post.slug %}">Update Post</a>
-                                <span class="mx-4"></span>
-                                <a class="btn btn-outline-danger"
-                                   href="{% url 'delete-post' post.slug %}">Delete Post</a>
-                            {% endif %}
-                        </div>
-                    {% else %}
-                        <div class="text-center h4 mb-0">{{ post.author }}</div>
-                    {% endif %}
+                    <div class="text-center h4 mb-0" id="post-author">
+                        <a href="{% url 'profile' post.author.id %}">{{ post.author }}</a></div>
                     <div class="p-2 text-center">
                         <h1>{{ post.title }}</h1>
                     </div>
@@ -93,7 +82,7 @@
                                 <div class="card-body">
                                     <div class="card-title">
                                         <div>
-                                            <span class="h4">{{ comment.author }}</span><span class="mx-2"></span><span>{{ comment.created }}</span>
+                                            <span class="h4"><a class="d-inline" href="{% url 'profile' comment.author.id %}">{{ comment.author }}</a></span><span class="mx-2"></span><span>{{ comment.created }}</span>
                                         </div>
                                     </div>
                                     <div class="card-text">{{ comment.body }}</div>
