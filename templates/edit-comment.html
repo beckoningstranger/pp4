@@ -7,15 +7,36 @@
     Update your comment
 {% endblock page_title %}
 {% block content %}
-    <section id="edit-post-form">
-        <p>Need to make adjustments, {{ user.username }}?</p>
-        <form method="post">
+    <div class="container">
+        <h1 class="text-center">Need to make adjustments, {{ user.username }}?</h1>
+        <form method="post" class="d-flex align-items-center">
             {% csrf_token %}
             {{ form.as_p }}
             <div id="edit-post-buttons">
-                <a href="{% url 'timeline' %}" class="btn btn-primary">Cancel</a>
-                <button class="btn btn-primary">Update</button>
+                <a href="{% url 'post-details' comment.post.slug %}"
+                   class="btn btn-primary px-4">Cancel</a>
+                <button class="btn btn-primary px-4">Update</button>
             </div>
         </form>
-    </section>
+        <div id="comment-container" class="border my-3 p-3">
+            <div class="my-2 card d-flex flex-row bg-info text-light comment-card">
+                <img class="img-fluid d-none d-md-block p-2 rounded"
+                     {% if comment.author_social.profile_image == "placeholder" %} src="{% static 'images/placeholders/default_user.svg' %}" {% else %} src="{{ comment.author_social.profile_image }}" {% endif %}
+                     alt="Commenter Profile Image"
+                     width="150"
+                     height="100"/>
+                <div class="card-body">
+                    <div class="card-title">
+                        <div>
+                            <span class="h4"><a class="d-inline" href="{% url 'profile' comment.author.id %}">{{ comment.author }}</a></span><span class="mx-2"></span><span>{{ comment.created }}</span>
+                        </div>
+                    </div>
+                    <div class="card-text">{{ comment.body }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
+{% block javascript %}
+    <script src="{% static 'js/edit-comment.js' %}"></script>
+{% endblock javascript %}

@@ -56,11 +56,14 @@
                                 <li class="nav-item active user-action" id="edit-profile">
                                     <a href="" class="nav-link">Edit your profile</a>
                                 </li>
+                                <li class="nav-item active user-action" id="follow-people">
+                                    <a href="{% url 'user-list' %}" class="nav-link">Find more people to follow</a>
+                                </li>
                                 <li class="nav-item active">
-                                    <a href="" class="nav-link">Timeline</a>
+                                    <a href="{% url 'timeline' %}" class="nav-link">Timeline</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">Circle</a>
+                                    <a href="{% url 'circle' %}" class="nav-link">Circle</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a href="#"

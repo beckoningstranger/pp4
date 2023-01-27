@@ -4,9 +4,9 @@
 
 :root {
    --main-font-color: rgb(255, 255, 255);
-   --accent-font-color: #003CBD;
-   --background-color: #333;
-   --foreground-color: rgb(107, 146, 218);
+   --accent-font-color: #f5cf96;
+   --background-color: rgb(41, 41, 41);
+   --foreground-color: rgba(61, 16, 119, 1);
 }
 
 * {
@@ -30,9 +30,8 @@
 
 body {
    background-color: var(--background-color);
-   min-height: 100vh;
    /* This is needed due to the sticky navbar */
-   padding-top: 90px;
+   padding-top: 110px;
 }
 
 a {
@@ -42,26 +41,6 @@ a {
 
 ul {
    list-style: none;
-}
-
-
-.floating-btn {
-   /* background-color: var(--nav-background-color);
-   color: var(--main-font-color); */
-   position: fixed;
-   bottom: 0px;
-   border-radius: 50%;
-   border: 5px solid var(--main-font-color);
-   font-size: xx-large;
-   padding: 0px;
-   width: 70px;
-   height: 70px;
-   line-height: 50px;
-}
-
-
-#add-post-btn {
-   right: 10px;
 }
 
 #logout-btn {

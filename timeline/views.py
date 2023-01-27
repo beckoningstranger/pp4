@@ -160,9 +160,21 @@ class ProfileView(View):
 
     def get(self, request, viewed_user_id):
         viewed_user = SocialUser.objects.get(user=viewed_user_id)
+        all_viewed_user_posts = Post.objects.filter(author=viewed_user_id)
+        total_number_of_posts = all_viewed_user_posts.count()
+        total_number_of_likes = 0
+        for post in all_viewed_user_posts:
+            total_number_of_likes += post.likes.count()
+        total_number_of_comments = 0
+        for post in all_viewed_user_posts:
+            total_number_of_comments += post.comments.count()
+
         return render(request, "profile.html", {
             "viewed_user": viewed_user,
-            "viewed_user_posts": Post.objects.filter(author=viewed_user_id)
+            "viewed_user_posts": all_viewed_user_posts,
+            "viewed_user_total_likes": total_number_of_likes,
+            "viewed_user_total_posts": total_number_of_posts,
+            "viewed_user_total_comments": total_number_of_comments,
         })
     
 

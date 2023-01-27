@@ -1,11 +1,17 @@
+// Get the current URL
 var url = window.location.pathname
+// Find who the currently logged in user is
+var currentUser = document.getElementById('navbarDropdownMenuLink').innerText.trim()
 
+// Extract the part after the last '/' from the URL
 function getSlugOrPk() {
     let urlBeforeSlashReversed = ""
     let urlBeforeSlash = ""
+    // Trace the URL from its end to the first appearing '/' and write the result down, resulting in a reversed word
     for (let i = url.length - 1; url[i] != "/"; i--) {
         urlBeforeSlashReversed += url[i]
     }
+    // Reverse the just generated variable so the word is readable again
     for (let i = urlBeforeSlashReversed.length - 1; i > -1; i--) {
         urlBeforeSlash += urlBeforeSlashReversed[i]
     }
@@ -22,8 +28,6 @@ if (document.title == "Timeline") {
 
 
 // Posts:
-var currentUser = document.getElementById('navbarDropdownMenuLink').innerText.trim()
-
 if (url.includes('post')) {
     var postAuthorElement = document.getElementById('post-author')
     var postAuthor = postAuthorElement.innerText.trim()
@@ -40,6 +44,7 @@ if (url.includes('post')) {
 
 // Profiles:
 if (url.includes('profile')) {
+    // Find who owns the profile that's being displayed
     var profileOwner = document.getElementById('profile-owner').innerText.trim()
     console.log(profileOwner)
     if (profileOwner == currentUser) {
@@ -49,3 +54,8 @@ if (url.includes('profile')) {
     }
 }
 
+// Circle:
+if (url.includes('mycircle')) {
+    followPeople = document.getElementById('follow-people')
+    followPeople.style.display = 'block'
+}

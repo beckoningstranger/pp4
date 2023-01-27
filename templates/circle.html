@@ -1,36 +1,49 @@
 {% extends "base.html" %}
 {% load static %}
 {% block css_files %}
+    <link rel="stylesheet" href="{% static 'css/circle.css' %}" />
 {% endblock css_files %}
 {% block page_title %}
+    {{ user }}'s Circle
 {% endblock page_title %}
 {% block content %}
-    {% if followed_users %}
-        <ul>
-            You currently follow:
-            {% for u in social_users %}
-                {% if u.user.username in followed_users %}
-                    <li>
-                        {{ u }}:
-                        {% if u.bio %}{{ u.bio }}:{% endif %}
-                        <form action="{% url 'unfollow-user' u.user.username %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">Unfollow {{ u.user.username }}</button>
-                        </form>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    {% else %}
-        You aren't following anybody right now. Try adding somebody to see their posts on your timeline!
-    {% endif %}
-    <!-- Button that allows user to follow other users -->
-    <form action="{% url 'user-list' %}">
-        <button type="submit"
-                class="btn my-4 btn floating-btn"
-                id="add-post-btn"
-                value="Find users to follow">
-            <i class="fa-solid fa-user-plus"></i>
-        </button>
-    </form>
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="row mb-4 d-flex justify-content-around gy-4">
+            {% if followed_users %}
+                <h1 class="text-center">You are following:</h1>
+                {% for u in social_users %}
+                    {% if u.user.username in followed_users %}
+                        <div class="col-xl-3 col-lg-4 col-sm-6 d-flex">
+                            <div class="card bg-dark text-white border border-white">
+                                {% if u.profile_image == "placeholder" %}
+                                    <img src="{% static 'images/placeholders/default_user.svg' %}"
+                                         alt="Placeholder image"
+                                         class="card-img-top img-fluid p-2 rounded"/>
+                                {% else %}
+                                    <img src="{{ u.profile_image }}"
+                                         alt="{{ u.profile_image }}'s photo"
+                                         class="card-img-top img-fluid p-2 rounded"/>
+                                {% endif %}
+                                <div class="card-body d-flex flex-column justify-content-end">
+                                    <h5 class="card-title">
+                                        <a href="{% url 'profile' u.user.id %}">{{ u }}</a>
+                                    </h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ u.number_of_posts }} posts</h6>
+                                    <div class="card-text">{{ u.bio }}</div>
+                                    <form action="{% url 'unfollow-user' u.user.username %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary">Unfollow {{ u.user.username }}</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <div>
+                    You aren't following anybody right now. <a href="{% url 'user-list' %}">Try adding somebody</a> to see their posts on your timeline!
+                </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock content %}

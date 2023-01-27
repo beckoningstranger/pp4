@@ -11,9 +11,10 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class SocialUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(
-        max_length=500, default="No bio has been added yet...")
+        max_length=200, default="No bio has been added yet...")
     location = models.CharField(max_length=30, blank=True)
-    age = models.IntegerField(blank=True, validators=[MaxValueValidator(120), MinValueValidator(1)], null=True)
+    age = models.IntegerField(blank=True, validators=[
+                              MaxValueValidator(120), MinValueValidator(1)], null=True)
     join_date = models.DateTimeField(auto_now=True)
     following = ArrayField(models.CharField(
         max_length=100), blank=True, null=True)
@@ -34,6 +35,8 @@ class SocialUser(models.Model):
     def readable_datetime(self, *args, **kwargs):
         return self.join_date.strftime("%B %d, %Y at %H:%M")
 
+    def number_of_posts(self):
+        return self.user.post_author.all().count()
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

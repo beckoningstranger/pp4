@@ -7,14 +7,32 @@
     Delete your comment
 {% endblock page_title %}
 {% block content %}
-    <section id="add-post-form">
-        <p>Do you really want to delete this comment: {{ comment.body }}?</p>
-        <form method="post">
+    <div class="container">
+        <h1 class="text-center">Do you really want to delete this comment?</h1>
+        <form method="post" class="d-flex align-items-center">
             {% csrf_token %}
             <div id="edit-post-buttons">
-                <a href="{% url 'timeline' %}" class="btn btn-primary">Cancel</a>
-                <button class="btn btn-primary">Delete</button>
+                <a href="{% url 'post-details' comment.post.slug %}"
+                   class="btn btn-primary px-4">Cancel</a>
+                <button class="btn btn-primary px-4">Delete</button>
             </div>
         </form>
-    </section>
+        <div id="comment-container" class="border my-3 p-3">
+            <div class="my-2 card d-flex flex-row bg-info text-light comment-card">
+                <img class="img-fluid d-none d-md-block p-2 rounded"
+                     {% if comment.author_social.profile_image == "placeholder" %} src="{% static 'images/placeholders/default_user.svg' %}" {% else %} src="{{ comment.author_social.profile_image }}" {% endif %}
+                     alt="Commenter Profile Image"
+                     width="150"
+                     height="100"/>
+                <div class="card-body">
+                    <div class="card-title">
+                        <div>
+                            <span class="h4"><a class="d-inline" href="{% url 'profile' comment.author.id %}">{{ comment.author }}</a></span><span class="mx-2"></span><span>{{ comment.created }}</span>
+                        </div>
+                    </div>
+                    <div class="card-text">{{ comment.body }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

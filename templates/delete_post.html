@@ -7,14 +7,37 @@
     Delete this post
 {% endblock page_title %}
 {% block content %}
-    <section id="add-post-form">
-        <p>Do you really want to delete this post: {{ post.title }}?</p>
-        <form method="post">
+    <div class="container">
+        <h1 class="text-center">Do you really want to delete this post?</h1>
+        <form method="post" class="d-flex align-items-center">
             {% csrf_token %}
             <div id="edit-post-buttons">
-                <a href="{% url 'timeline' %}" class="btn btn-primary">Cancel</a>
-                <button class="btn btn-primary">Delete</button>
+                <a href="{% url 'timeline' %}" class="btn btn-primary px-4">Cancel</a>
+                <button class="btn btn-primary px-4">Delete</button>
             </div>
         </form>
-    </section>
+        <div id="post-container" class="border my-3 p-3">
+            <section id="post-main" class="d-flex flex-column justify-content-center my-5">
+                <div id="post-header">
+                    <div class="text-center h4" id="post-author">
+                        <a href="{% url 'profile' post.author.id %}">{{ post.author }}</a>
+                    </div>
+                    <div class="p-2 text-center">
+                        <h1>{{ post.title }}</h1>
+                    </div>
+                    <div class="text-center h5">{{ post.readable_datetime }}</div>
+                </div>
+                <div id="post-images-container" class="text-center">
+                    {% for image in post.images %}
+                        <img src="{{ image }}"
+                             alt="Image Thumbnail"
+                             class="rounded m-1"
+                             height="100"
+                             width="100"/>
+                    {% endfor %}
+                </div>
+                <div id="post-body" class="text-left m-sm-5">{{ post.content|linebreaks }}</div>
+            </section>
+        </div>
+    </div>
 {% endblock content %}

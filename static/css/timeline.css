@@ -4,6 +4,7 @@
     -moz-box-shadow: 11px 10px 16px -8px rgb(0, 0, 0);
     box-shadow: 11px 10px 16px -8px rgb(0, 0, 0);
     border-radius: 10px;
+    border: 1px solid black;
     color: var(--main-font-color);
 }
 
@@ -30,9 +31,4 @@
 .share-button {
     padding-right: 5px;
     background-color: transparent;
-}
-
-#read-button {
-    padding: 5px;
-    border: 2px solid black;
 }

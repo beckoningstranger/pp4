@@ -1,0 +1,11 @@
+* {
+    color: #fff
+}
+
+.d-flex {
+    justify-content: space-around;
+}
+
+.card-img-top {
+    min-height: 50%;
+}

@@ -9,9 +9,9 @@
 {% endblock page_title %}
 {% block content %}
     <div class="container my-4">
-        {{ viewer_user.profile_image }}
-        <div class="container" id="user-posts">
-            <div class="row gy-4 mb-4 ">
+        {{ viewed_user.profile_image }}
+        <div class="container">
+            <div class="row gy-4 mb-4" id="user-data">
                 <div class="col-lg-2 col-md-4 col-sm-4 profile-photo-container">
                     <div class="timeline-card profile-photo">
                         {% if viewed_user.profile_image == "placeholder" %}
@@ -41,16 +41,16 @@
                         <div class="bio">
                             <p>{{ viewed_user.bio }}</p>
                         </div>
-                        <br/>
+                        <div>
+                            {{ viewed_user }} has posted {{ viewed_user_total_posts }} times and received a total of {{ viewed_user_total_comments }} comments and {{ viewed_user_total_likes }} likes.
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row gy-4 mb-4">
+            <div class="row gy-4 mb-4" id="user-posts">
                 {% for post in viewed_user_posts %}
                     <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="timeline-card p-3"
-                             style="{% if post.author == user %} border: 5px solid black {% else %} border: 5px solid #444;
-                                    {% endif %}">
+                        <div class="timeline-card p-3">
                             <div class="centered">
                                 <a href="{% url 'post-details' post.slug %}">
                                     <h2 class="card-title centered">{{ post.title }}</h2>

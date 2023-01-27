@@ -10,9 +10,9 @@
 {% endblock page_title %}
 {% block content %}
   <div class="bg-dark text-light p-md-5 p-0 text-center login-page">
-    <div class="container-fluid">
+    <div class="container-fluid mt-3">
       <div class="d-flex flex-column flex-md-row justify-content-center align-items-center">
-        <div class="col-sm">
+        <div class="col-sm pt-3">
           <img class="img-fluid"
                src="{% static 'images/socialnetwork.svg' %}"
                alt=""/>
@@ -49,8 +49,6 @@
                      name="{{ redirect_field_name }}"
                      value="{{ redirect_field_value }}"/>
             {% endif %}
-            <a class="button secondaryAction"
-               href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
             <button class="primaryAction btn btn-primary btn-lg mx-2 px-4" type="submit">{% trans "Sign In" %}</button>
           </form>
           <div class="mt-5 fs-6 fw-light">Are you new here?<br/><a class="link-primary mt-2" href="{% url 'signup' %}">Create an account</a></div>

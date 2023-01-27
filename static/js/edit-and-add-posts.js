@@ -53,7 +53,10 @@ var myWidget = cloudinary.createUploadWidget(
     (error, result) => {
         if (!error && result && result.event === "success") {
             let new_img = document.createElement('img')
-            new_img.setAttribute("src", result.info.url)
+            // The widget returns a url leading with http instead of https, but that's easily replaced
+            let receivedUrl = result.info.url.replace('http', 'https')
+            // Now the newly created image element is formatted and inserted into the DOM
+            new_img.setAttribute("src", receivedUrl)
             new_img.setAttribute("width", "150")
             new_img.setAttribute("height", "150")
             new_img.setAttribute("class", "rounded m-1 user-image")
@@ -64,12 +67,13 @@ var myWidget = cloudinary.createUploadWidget(
             });
             insert_pics_here.insertAdjacentElement("beforeend", new_img);
 
+            // The uploaded image's received url is inserted into the  hidden input field in the form
             urls = document.getElementById('id_images')
             if (urls.value === "") {
-                urls.setAttribute("value", result.info.url)
+                urls.setAttribute("value", receivedUrl)
             }
             else {
-                urls.setAttribute("value", urls.value + " " + result.info.url);
+                urls.setAttribute("value", urls.value + " " + receivedUrl);
             }
         }
     }
