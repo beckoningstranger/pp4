@@ -2,6 +2,10 @@
     color: #fff
 }
 
+main {
+    margin-top: -50px;
+}
+
 #add-post-form {
     text-align: center;
     margin: 0 2rem;

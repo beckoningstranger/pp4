@@ -3,7 +3,8 @@ from . import views
 from allauth.account.views import LoginView, SignupView
 
 urlpatterns = [
-    path('', LoginView.as_view(), name="login"),
+    path('', views.LandingView.as_view(), name="landing"),
+    path('login', LoginView.as_view(), name="login"),
     path('signup', SignupView.as_view(), name="signup"),
     path('timeline/', views.TimelineView.as_view(), name="timeline"),
     path('post/<slug:slug>', views.PostDetailView.as_view(), name="post-details"),

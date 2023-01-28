@@ -5,8 +5,8 @@
 :root {
    --main-font-color: rgb(255, 255, 255);
    --accent-font-color: #f5cf96;
-   --background-color: rgb(41, 41, 41);
-   --foreground-color: rgba(61, 16, 119, 1);
+   --background-color: #212529;
+   --foreground-color: rgba(201,32,201,0.5)
 }
 
 * {

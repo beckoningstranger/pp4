@@ -3,6 +3,12 @@
     margin: 0 auto;
  }
 
- body {
-   margin-top: -50px;
-}
+ #share-your-stories {
+    color: #C920C9
+ }
+
+ #join-button {
+    --bs-btn-hover-bg: #C920C9;
+    --bs-btn-hover-border-color: #C920C9;
+    --bs-btn-hover-color: #FFF;
+ }
