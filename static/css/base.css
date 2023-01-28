@@ -51,6 +51,10 @@ ul {
    color: #FFF;
 }
 
+#logout-btn:hover {
+   color: #000;
+}
+
 .errorlist * {
    color: red;
 }
@@ -59,3 +63,8 @@ ul {
 .user-action {
    display: none;
 }
+
+.active, .nav-item:hover {
+   text-decoration: underline;
+   font-weight: bold;
+ }

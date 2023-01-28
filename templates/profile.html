@@ -9,7 +9,6 @@
 {% endblock page_title %}
 {% block content %}
     <div class="container my-4">
-        {{ viewed_user.profile_image }}
         <div class="container">
             <div class="row gy-4 mb-4" id="user-data">
                 <div class="col-lg-2 col-md-4 col-sm-4 profile-photo-container">
@@ -95,8 +94,7 @@
                                      role="group"
                                      aria-label="Second group">
                                     <a href="{% url 'post-details' post.slug %}"
-                                       id="read-button"
-                                       class="card-button">Read more</a>
+                                       class="btn btn-outline-light">Read more</a>
                                 </div>
                             </div>
                         </div>

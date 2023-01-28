@@ -1,5 +1,6 @@
 var insert_pics_here = document.querySelector('#uploaded_pics')
 var image_url = document.getElementById('id_profile_image')
+var urls = document.getElementById('id_profile_image')
 
 // Hide the image input field so user can't touch it
 var imagesInputFields = document.getElementsByTagName('p');
@@ -7,7 +8,7 @@ imagesInputFields[4].style.display = "none"
 
 // Get the profile image and assign eventListeners to it so users can remove it with a click
 if (document.getElementById('profile-image') != null) {
-    let previous_img = document.getElementById('profile-image')
+    var previous_img = document.getElementById('profile-image')
     previous_img.addEventListener("click", function () {
         image_url.setAttribute("value", "placeholder")
         previous_img.remove()
@@ -39,6 +40,7 @@ var myWidget = cloudinary.createUploadWidget(
             profile_img.setAttribute("src", receivedUrl)
             profile_img.setAttribute("width", "200")
             profile_img.setAttribute("height", "200")
+            profile_img.setAttribute("id", "profile-image")
             profile_img.addEventListener("click", function () {
                 urls.setAttribute("value", 'placeholder')
                 profile_img.remove()
@@ -59,3 +61,10 @@ document.getElementById("upload_widget").addEventListener(
     },
     false
 );
+
+var labels = document.getElementsByTagName('label')
+for (let label of labels) { label.setAttribute('class', 'form-control bg-dark text-white') }
+var inputs = document.getElementsByTagName('input')
+for (let input of inputs) { input.setAttribute('class', 'form-control bg-dark text-white') }
+var textarea = document.getElementById('id_bio')
+textarea.setAttribute('class', 'form-control bg-dark text-white')

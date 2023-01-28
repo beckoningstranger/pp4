@@ -7,30 +7,32 @@
 {% block page_title %}
     Update your profile
 {% endblock page_title %}
-{% block content %}
-    {{ socialuser.user.username }}'s Profile:
-    <div id="uploaded_pics">
-        <p>Simply click a photo to remove it from this post. Your first image will feature on the timeline.</p>
-        {% if not socialuser.profile_image == "placeholder" %}
-            <img src="{{ socialuser.profile_image }}"
-                 alt=""
-                 id="profile-image"
-                 height="200"
-                 width="200"/>
-        {% endif %}
+{% block content %}    
+    <div class="container d-flex flex-column justify-content-center my-3">
+        <h1 class="text-center">{{ socialuser.user.username }}'s Profile:</h1>
+        <div id="uploaded_pics" class="d-flex flex-column justify-content-center">
+            <p class="text-center">Click your profile photo to remove it or upload a different one.</p>
+            {% if not socialuser.profile_image == "placeholder" %}
+                <img src="{{ socialuser.profile_image }}"
+                     alt=""
+                     id="profile-image"
+                     height="200"
+                     width="200"/>
+            {% endif %}
+            <button id="upload_widget" class="cloudinary-button my-2">Upload profile image</button>
+        </div>
+        <section id="edit-profile-form">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div id="edit-post-buttons">
+                    <a href="{% url 'timeline' %}" class="btn btn-primary">Back</a>
+                    {% comment %} This prevents people from editing other people's profiles or at least makes it a lot harder {% endcomment %}
+                    {% if socialuser.user.username == user.username %}<button class="btn btn-primary">Update</button>{% endif %}
+                </div>
+            </form>
+        </section>
     </div>
-    <section id="edit-profile-form">
-        <button id="upload_widget" class="cloudinary-button">Upload profile image</button>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <div id="edit-post-buttons">
-                <a href="{% url 'timeline' %}" class="btn btn-primary">Back</a>
-                {% comment %} This prevents people from editing other people's profiles or at least makes it a lot harder {% endcomment %}
-                {% if socialuser.user.username == user.username %}<button class="btn btn-primary">Update</button>{% endif %}
-            </div>
-        </form>
-    </section>
 {% endblock content %}
 {% block javascript %}
     {% comment %} Cloudinary Upload widget {% endcomment %}

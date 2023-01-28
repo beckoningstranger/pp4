@@ -18,8 +18,6 @@ function getSlugOrPk() {
     return urlBeforeSlash
 }
 
-getSlugOrPk();
-
 // Timeline page:
 if (document.title == "Timeline") {
     addPost = document.getElementById('add-post')
@@ -28,7 +26,7 @@ if (document.title == "Timeline") {
 
 
 // Posts:
-if (url.includes('post')) {
+if (url.includes('/post')) {
     var postAuthorElement = document.getElementById('post-author')
     var postAuthor = postAuthorElement.innerText.trim()
     if (postAuthor == currentUser) {
@@ -39,18 +37,20 @@ if (url.includes('post')) {
         deletePost.style.display = 'block'
         deletePost.children[0].setAttribute('href', '/' + 'delete-post/' + getSlugOrPk())
     }
-    
+
 }
 
 // Profiles:
 if (url.includes('profile')) {
     // Find who owns the profile that's being displayed
-    var profileOwner = document.getElementById('profile-owner').innerText.trim()
-    console.log(profileOwner)
-    if (profileOwner == currentUser) {
-        editProfile = document.getElementById('edit-profile')
-        editProfile.style.display = 'block'
-        editProfile.children[0].setAttribute('href', '/' + 'profile/edit/' + getSlugOrPk())
+    var profileOwnerexists = document.getElementById('profile-owner')
+    if (profileOwnerexists) {
+        var profileOwner = document.getElementById('profile-owner').innerText.trim()
+        if (profileOwner == currentUser) {
+            editProfile = document.getElementById('edit-profile')
+            editProfile.style.display = 'block'
+            editProfile.children[0].setAttribute('href', '/' + 'profile/edit/' + getSlugOrPk())
+        }
     }
 }
 
@@ -59,3 +59,4 @@ if (url.includes('mycircle')) {
     followPeople = document.getElementById('follow-people')
     followPeople.style.display = 'block'
 }
+

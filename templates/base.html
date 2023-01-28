@@ -44,26 +44,26 @@
                     <div class="collapse navbar-collapse" id="navmenu">
                         <ul class="navbar-nav ms-auto fs-large text-center">
                             {% if user.is_authenticated %}
-                                <li class="nav-item active user-action" id="add-post">
+                                <li class="nav-item user-action" id="add-post">
                                     <a href="{% url 'add-post' %}" class="nav-link">Add a new post</a>
                                 </li>
-                                <li class="nav-item active user-action" id="edit-post">
+                                <li class="nav-item user-action" id="edit-post">
                                     <a href="" class="nav-link">Edit this post</a>
                                 </li>
-                                <li class="nav-item active user-action" id="delete-post">
+                                <li class="nav-item user-action" id="delete-post">
                                     <a href="" class="nav-link">Delete this post</a>
                                 </li>
-                                <li class="nav-item active user-action" id="edit-profile">
+                                <li class="nav-item user-action" id="edit-profile">
                                     <a href="" class="nav-link">Edit your profile</a>
                                 </li>
-                                <li class="nav-item active user-action" id="follow-people">
+                                <li class="nav-item user-action" id="follow-people">
                                     <a href="{% url 'user-list' %}" class="nav-link">Find more people to follow</a>
                                 </li>
-                                <li class="nav-item active">
-                                    <a href="{% url 'timeline' %}" class="nav-link">Timeline</a>
+                                <li class="nav-item">
+                                    <a href="{% url 'timeline' %}" class="nav-link" id="timeline">Timeline</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{% url 'circle' %}" class="nav-link">Circle</a>
+                                    <a href="{% url 'circle' %}" class="nav-link" id="circle">Circle</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a href="#"
@@ -76,7 +76,6 @@
                                     <div class="dropdown-menu bg-dark"
                                          aria-labelledby="navbarDropdownMenuLink">
                                         <a href="{% url 'profile' user.id %}" class="dropdown-item"><i class="fa-regular fa-circle-user"></i> My Profile</a>
-                                        <a href="#" class="dropdown-item"><i class="fa-solid fa-gear"></i> Settings</a>
                                         <form method="post"
                                               action="{% url 'account_logout' %}"
                                               class="dropdown-item">

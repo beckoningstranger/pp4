@@ -2,10 +2,6 @@
     color: #fff
 }
 
-body {
-    margin-top: -50px;
-}
-
 #add-post-form {
     text-align: center;
     margin: 0 2rem;
@@ -34,4 +30,8 @@ form p {
 
 .user-image:hover {
     border: 5px dashed red;
+}
+
+img#profile-image {
+    margin: 10px auto;
 }
