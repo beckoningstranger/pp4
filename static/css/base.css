@@ -65,6 +65,6 @@ ul {
 }
 
 .active, .nav-item:hover {
-   text-decoration: underline;
-   font-weight: bold;
+   border-bottom: 1px solid white;
+   margin-bottom:-5px;
  }

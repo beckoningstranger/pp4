@@ -10,7 +10,7 @@
 {% block content %}
     {% if user.is_authenticated %}
             <div class="container-fluid px-lg-5">
-                <div class="row gy-4 mb-4">
+                <div class="row gy-4 mb-4" id="posts">
                     {% for post in all_relevant_posts %}
                         <div class="col-xxl-4 col-md-6 col-sm-12">
                             <article>
@@ -78,3 +78,6 @@
             </div>
     {% endif %}
 {% endblock content %}
+{% block javascript %}
+    <script src="{% static 'js/timeline.js' %}"></script>
+{% endblock javascript %}

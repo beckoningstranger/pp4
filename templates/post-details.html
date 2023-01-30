@@ -60,7 +60,7 @@
                             {% else %}
                                 <div>
                                     {% if post.number_of_likes > 1 %}
-                                        {{ post.number_of_likes }} people like this post!
+                                        {{ post.number_of_likes }} people like this post! Do you? <a href="{% url 'login' %}">Sign in</a>
                                     {% else %}
                                         {% if post.number_of_likes == 1 %}
                                             This post has received a like!

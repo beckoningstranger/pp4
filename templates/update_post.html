@@ -9,8 +9,8 @@
 {% block content %}
     <div class="bg-dark text-light p-md-5 p-0 text-center">
         <div class="container-fluid bg-dark text-light d-flex flex-column-reverse flex-xl-row py-2">
-            <div id="add-post-image" class="col-sm p-2">
-                <img class="img-fluid" src="{% static 'images/add_post.svg' %}" alt="A stylized person composing a post"/>
+            <div id="add-post-image" class="d-none d-xl-flex col-sm p-2 mt-3">
+                <img class="img-fluid" src="{% static 'images/add_post.svg' %}" alt="A stylized person composing a post" height="" width=""/>
             </div>
             <div id="add-post-form" class="col-sm p-2">
                 <div class="h1 m-2">Need to make adjustments, {{ user.username }}?</div>
@@ -30,22 +30,6 @@
             </div>
         </div>
     </div>
-    {% comment %} <section id="add-post-form">
-        <div>Need to make adjustments, {{ user.username }}?</div>
-        <div id="uploaded_pics">
-            <p>Simply click a photo to remove it from this post. Your first image will feature on the timeline.</p>
-            {% for image in post.images %}<img src="{{ image }}" alt="" class="user-image" height="200" width="200"/>{% endfor %}
-        </div>
-        <button id="upload_widget" class="cloudinary-button">Click here to upload more photos</button>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <div id="edit-post-buttons">
-                <a href="{% url 'timeline' %}" class="btn btn-primary">Cancel</a>
-                <button class="btn btn-primary">Update</button>
-            </div>
-        </form>
-    </section> {% endcomment %}
 {% endblock content %}
 {% block javascript %}
     {% comment %} Cloudinary Upload widget {% endcomment %}

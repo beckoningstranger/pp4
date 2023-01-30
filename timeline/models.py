@@ -8,6 +8,12 @@ from django.urls import reverse, reverse_lazy
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 
+# This sets the default user that every newly created user will follow after signing up
+def set_default_following():
+    default_user = ['admin']
+    return list(default_user)
+
+
 class SocialUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(
@@ -17,7 +23,7 @@ class SocialUser(models.Model):
                               MaxValueValidator(120), MinValueValidator(1)], null=True)
     join_date = models.DateTimeField(auto_now=True)
     following = ArrayField(models.CharField(
-        max_length=100), blank=True, null=True)
+        max_length=100), blank=True, null=True, default=set_default_following)
     profile_image = models.CharField(max_length=100, default="placeholder")
 
     class Meta:
@@ -37,6 +43,7 @@ class SocialUser(models.Model):
 
     def number_of_posts(self):
         return self.user.post_author.all().count()
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

@@ -12,3 +12,7 @@
     --bs-btn-hover-border-color: #C920C9;
     --bs-btn-hover-color: #FFF;
  }
+
+ #welcome-picture {
+   max-width: 90%;
+ }

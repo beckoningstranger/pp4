@@ -33,6 +33,6 @@
     background-color: transparent;
 }
 
-.timeline-card:hover {
-    transform: scale(1.01);
+#posts {
+    color: white;
 }

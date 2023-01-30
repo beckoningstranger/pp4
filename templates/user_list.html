@@ -10,6 +10,7 @@
     <div class="container-fluid d-flex justify-content-center">
         <div class="row mb-4 d-flex justify-content-around gy-4"
              id="users-left-to-follow">
+             <h1 class="text-center">These are all the users you can follow:</h1>
             {% for u in social_users %}
                 {% if not u.user.username == user.username and not u.user.username == 'admin' and not u.user.username in followed_users %}
                     <div class="col-xl-3 col-lg-4 col-sm-6 d-flex">

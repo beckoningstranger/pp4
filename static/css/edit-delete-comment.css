@@ -40,7 +40,3 @@ form p {
 img#profile-image {
     margin: 10px auto;
 }
-
-#profile-image:hover {
-    border: 5px dashed red;
-}
