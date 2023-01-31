@@ -151,7 +151,3 @@ class Comment(models.Model):
 
     def get_absolute_url(self):
         return reverse("post-details", kwargs={"slug": self.post.slug})
-
-    # def save(self, *args, **kwargs):
-    #     x = self.author
-    #     self.author_social = SocialUser.objects.get(user=x)

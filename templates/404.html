@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'css/404.css' %}" />
+{% endblock css_files %}
+{% block content %}
+    <div class="container">
+        <img src="{% static 'images/404.svg' %}"
+             alt="404 image"
+             class="img-fluid"
+             height=""
+             width=""/>
+        <p>
+            {% if user.is_authenticated %}
+                <a href="{% url 'timeline' %}" class="text-center">Back to your timeline</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="text-center">Log in</a>
+            {% endif %}
+        </p>
+    </div>
+{% endblock content %}

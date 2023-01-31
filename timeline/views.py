@@ -8,6 +8,11 @@ from operator import attrgetter
 from .forms import CommentForm
 import re
 
+
+def page_not_found_view(request, exception):
+    return render('404.html', status=404)
+
+
 class TimelineView(ListView):
 
     model = Post
@@ -63,7 +68,7 @@ class PostDetailView(View):
                           "post": post,
                           "comments": comments,
                           "comment_form": CommentForm(),
-                          "liked" : liked,
+                          "liked": liked,
                           "multiple_images": multiple_images,
                           "main_image": main_image
                       })
@@ -88,7 +93,8 @@ class PostDetailView(View):
 
         if comment_form.is_valid():
             comment_form.instance.author = request.user
-            comment_form.instance.author_social = SocialUser.objects.get(user=request.user)
+            comment_form.instance.author_social = SocialUser.objects.get(
+                user=request.user)
             comment = comment_form.save(commit=False)
             comment.post = post
             comment.save()
@@ -101,7 +107,7 @@ class PostDetailView(View):
                           "post": post,
                           "comments": comments,
                           "comment_form": CommentForm(),
-                          "liked" : liked,
+                          "liked": liked,
                           "multiple_images": multiple_images,
                           "main_image": main_image
                       })
@@ -117,7 +123,7 @@ class AddPostView(CreateView):
         author = self.request.user
         form.instance.author = author
         extracted_urls = re.search('images" value="(.*)" id="id_', str(form))
-        try: 
+        try:
             extracted_urls_array = extracted_urls.group(1).split(' ')
         except AttributeError:
             extracted_urls_array = []
@@ -137,7 +143,7 @@ class UpdatePostView(UpdateView):
 
     def form_valid(self, form):
         extracted_urls = re.search('images" value="(.*)" id="id_', str(form))
-        try: 
+        try:
             extracted_urls_array = extracted_urls.group(1).split(' ')
         except AttributeError:
             extracted_urls_array = []
@@ -176,7 +182,6 @@ class ProfileView(View):
             "viewed_user_total_posts": total_number_of_posts,
             "viewed_user_total_comments": total_number_of_comments,
         })
-    
 
 
 class EditProfileView(UpdateView):
@@ -252,6 +257,7 @@ class UnfollowUserView(View):
             followed_users.following.remove(user_to_unfollow)
         followed_users.save()
         return redirect('circle')
+
 
 class LikePostView(View):
 
