@@ -26,10 +26,11 @@
 .btn-toolbar {
     margin-top: 0.2rem;
     align-items: center;
+    justify-content: center;
 }
 
 .share-button {
-    padding-right: 5px;
+    padding: 0 10px;
     background-color: transparent;
 }
 

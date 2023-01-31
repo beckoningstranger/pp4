@@ -46,14 +46,8 @@
                                         </a>
                                     </div>
                                     <div id="post.excerpt" class="card-text">{{ post.excerpt }}</div>
-                                    <div class="btn-toolbar justify-content-between"
-                                         role="toolbar"
-                                         aria-label="Toolbar with button groups"
-                                         id="post-buttons">
-                                        <div class="btn-group me-2"
-                                             id="share-buttons-container"
-                                             role="group"
-                                             aria-label="First group">
+                                    <div class="btn-toolbar text-center" id="post-buttons">
+                                        <div class="btn-group me-2 text-center">
                                             <a href="https://twitter.com/share?url=http://localhost:8000{% url 'post-details' post.slug %}"
                                                class="share-button card-button">
                                                 <i class="fa-brands fa-twitter"></i></a>
@@ -61,13 +55,6 @@
                                                class="share-button card-button">
                                                 <i class="fa-brands fa-facebook"></i>
                                             </a>
-                                        </div>
-                                        <div class="btn-group"
-                                             id="read-button-container"
-                                             role="group"
-                                             aria-label="Second group">
-                                            <a href="{% url 'post-details' post.slug %}"
-                                               class="btn btn-outline-light px-4">Read more</a>
                                         </div>
                                     </div>
                                 </div>
