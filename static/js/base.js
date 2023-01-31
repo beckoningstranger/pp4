@@ -1,7 +1,7 @@
 // Get the current URL
 var url = window.location.pathname
 // Find who the currently logged in user is
-var currentUser = document.getElementById('navbarDropdownMenuLink').innerText.trim()
+var currentUser = document.getElementById('navbarDarkDropdownMenuLink').innerText.trim()
 
 // Extract the part after the last '/' from the URL
 function getSlugOrPk() {
