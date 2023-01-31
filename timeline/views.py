@@ -246,7 +246,7 @@ class FollowUserView(View):
             if user_to_follow not in followed_users.following:
                 followed_users.following.append(user_to_follow)
         followed_users.save()
-        return redirect('circle')
+        return redirect('user-list')
 
 
 class UnfollowUserView(View):

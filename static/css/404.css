@@ -3,3 +3,7 @@ main {
    padding-top: 50px;
    color: white;
 }
+
+.container {
+   max-height: 60vh;
+}
