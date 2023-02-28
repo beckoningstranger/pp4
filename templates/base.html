@@ -93,64 +93,64 @@
                               aria-labelledby="navbarDarkDropdownMenuLink">
                             <li>
                               <a href="{% url 'profile' user.id %}" class="dropdown-item"><i class="fa-regular fa-circle-user"></i> My
-                                Profile</a
-                                >
-                                <li>
-                                  <form method="post"
-                                        action="{% url 'account_logout' %}"
-                                        class="dropdown-item">
-                                    {% csrf_token %}
-                                    {% if redirect_field_value %}
-                                      <input type="hidden"
-                                             name="{{ redirect_field_name }}"
-                                             value="{{ redirect_field_value }}"/>
-                                    {% endif %}
-                                    <button type="submit" id="logout-btn" class="nav-item">
-                                      <i class="fa-solid fa-door-open"></i> Sign Out
-                                    </button>
-                                  </form>
-                                </li>
+                              Profile</a>
+                              <li>
+                                <form method="post"
+                                      action="{% url 'account_logout' %}"
+                                      class="dropdown-item">
+                                  {% csrf_token %}
+                                  {% if redirect_field_value %}
+                                    <input type="hidden"
+                                           name="{{ redirect_field_name }}"
+                                           value="{{ redirect_field_value }}"/>
+                                  {% endif %}
+                                  <button type="submit" id="logout-btn" class="nav-item">
+                                    <i class="fa-solid fa-door-open"></i> Sign Out
+                                  </button>
+                                </form>
                               </li>
-                            </ul>
-                          </li>
-                        {% else %}
-                          <li class="nav-item">
-                            <a href="{% url 'login' %} " class="nav-link">Login</a>
-                          </li>
-                          <li class="nav-item">
-                            <a href="{% url 'signup' %}" class="nav-link">Signup</a>
-                          </li>
-                        {% endif %}
-                      </ul>
-                    </div>
+                            </li>
+                          </ul>
+                        </li>
+                      {% else %}
+                        <!-- This executes when the user is not logged in -->
+                        <li class="nav-item">
+                          <a href="{% url 'login' %} " class="nav-link">Login</a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="{% url 'signup' %}" class="nav-link">Signup</a>
+                        </li>
+                      {% endif %}
+                    </ul>
                   </div>
-                </nav>
-              </header>
-              <!-- Main Content -->
-              <main>
-                {% block content %}
-                {% endblock content %}
-              </main>
-              <!-- Footer -->
-              <footer>
-                {% block footer %}
-                {% endblock footer %}
-              </footer>
-              <!-- Fontawesome -->
-              <script src="https://kit.fontawesome.com/0f15d7891d.js"
-                      crossorigin="anonymous"></script>
-              <!-- Custom Javascript -->
-              {% if user.is_authenticated %}
-                <script src="{% static 'js/base.js' %}"></script>
-              {% endif %}
-              {% block javascript %}
-              {% endblock javascript %}
-              <!-- Bootstrap -->
-              <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-                      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-                      crossorigin="anonymous"></script>
-              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-                      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-                      crossorigin="anonymous"></script>
-            </body>
-          </html>
+                </div>
+              </nav>
+            </header>
+            <!-- Main Content -->
+            <main>
+              {% block content %}
+              {% endblock content %}
+            </main>
+            <!-- Footer -->
+            <footer>
+              {% block footer %}
+              {% endblock footer %}
+            </footer>
+            <!-- Fontawesome -->
+            <script src="https://kit.fontawesome.com/0f15d7891d.js"
+                    crossorigin="anonymous"></script>
+            <!-- Custom Javascript -->
+            {% if user.is_authenticated %}
+              <script src="{% static 'js/base.js' %}"></script>
+            {% endif %}
+            {% block javascript %}
+            {% endblock javascript %}
+            <!-- Bootstrap -->
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+                    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+                    crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+                    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+                    crossorigin="anonymous"></script>
+          </body>
+        </html>
